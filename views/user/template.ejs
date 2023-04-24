@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <header>
+      <nav>
+        <div class="logo">
+          <img
+            src="https://media-exp1.licdn.com/dms/image/C560BAQF6H8gAs-JyFg/company-logo_200_200/0/1627543110554?e=2159024400&v=beta&t=s136zw_Al97i6X22HhDewS48cRKvfSVzGbWEO0ZaQd0"
+            alt="" />
+            <ul>
+              <li><a href="/profile">My Profile</a></li>
+            </ul>
+        </div>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+        <form action="" class="mt-4" >
+          <div class="search" >
+            <input type="search" name="Search Product" id="" placeholder="Search Products"  class="form-control"/>
+            <button  type="submit" class="btn">Search</button>
+          </div>
+        </form>
+        <ul>
+          <li><a href="/myCart">MY Cart</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/singUp">Sing UP</a></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+  <div >
+    <div class="container-fluid">
+      <%- include(pageName); %>
+    </div>
+  </div>
+  <footer class="flex-all-center">
+      <p>Copyright &copy; FlipKart.com</p>
+    </footer>
+</body>
+
+</html>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+  :root {
+    --main-bg-color: #2874f0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  header {
+    background-color: var(--main-bg-color);
+    font-family: 'Lato', sans-serif;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo img {
+    width: 75px;
+    padding: 0 15px;
+  }
+
+  nav ul {
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 5px;
+  }
+
+  nav ul li {
+    list-style: none;
+    padding: 0 23px;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
+
+  nav ul li a:hover {
+    font-weight: bolder;
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+  }
+
+  .search input {
+    border-radius: 2px;
+    width: 30vw;
+    height: 29px;
+    margin: 0 10px 0 50px;
+    padding: 0 12px;
+  }
+
+  .search button {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+  }
+
+  .slider img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 81vw;
+    margin: 12px auto;
+    overflow: hidden;
+  }
+
+  .card {
+    max-width: 91vw;
+    margin: 12px auto;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .cards {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .card-item {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 10vw;
+    margin: 0 12px;
+  }
+
+  .card h2 {
+    font-family: 'Lato', sans-serif;
+    padding-left: 12px;
+
+  }
+
+  .container {
+    min-height: calc(100vh - 60px - 12vh);
+  }
+
+  footer {
+    background-color: var(--main-bg-color);
+    height: 12vh;
+    color: white;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .flex-all-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 5px 24px;
+    color: #2874f0;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .my-1 {
+    margin: 5px 0;
+  }
+
+  .my-2 {
+    margin: 26px 0;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .slider {
+      height: 23vh;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      justify-content: center;
+      margin: 12px 0;
+    }
+
+    nav ul {
+      justify-content: center;
+    }
+
+    .search {
+      justify-content: center;
+    }
+
+    .search input {
+      margin: 12px 16px;
+    }
+
+    nav ul {
+      height: 34px;
+      font-size: 20px;
+    }
+
+  }
+</style>
