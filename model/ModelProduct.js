@@ -69,5 +69,19 @@ class ModelProduct{
         });
     };
 
+    async getProductDetaByIds(productIds){
+        return new Promise(function(resolve, reject) {
+            const addNewQuery = `SELECT *FROM products WHERE id IN (${productIds})`;
+            connection.query(addNewQuery, function(error, result){
+                if(error){
+                    reject(error)
+                } else {
+                    resolve(result)
+                }
+            })
+            
+        })
+    }
+
 }
 module.exports = new ModelProduct();

@@ -27,7 +27,7 @@ class AuthenticateController {
                 fname: joi.string().required(),
                 lname: joi.string().required(),
                 email: joi.string().required(),
-                contact: joi.string().required(),
+                contact: joi.number().required(),
                 address: joi.string().required(),
                 lendMark: joi.string().required(),
                 city: joi.string().required(),
@@ -63,7 +63,7 @@ class AuthenticateController {
                const singleUser= await AuthenticateModel.insertUser(userDeta)
                res.redirect("/login")
         } catch (error) {
-            console.log("singUP page error")
+            console.log("singUP page error",error)
         }
     }
     login(req, res) {

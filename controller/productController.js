@@ -37,6 +37,7 @@ class productController {
     async createProduct(req, res) {
         try {
             let schema = Joi.object({
+                categoryId: Joi.number().required(),
                 title: Joi.string().required(),
                 description: Joi.string().required(),
                 price: Joi.number().required(),
@@ -193,6 +194,30 @@ class productController {
             res.json(response);
         } catch (error) {
             console.log("addProuctInCart page", error)
+        }
+    }
+
+    async cartPage(req, res) {
+        try {
+            let items = [];
+            if (req.cookies.cartProductIds) {
+                let allProductIds = req.cookies.cartProductIds;
+                allProductIds = allProductIds.toString(",");
+                console.log("allProductIds", allProductIds);
+                items = await ModelProduct.getProductDetaByIds(allProductIds)
+            }
+            let page = {
+                title: "Cart Page",
+                pageName: "cart",
+                products: "",
+                status: "",
+                user: "",
+            }
+            page.products = items;
+            console.log("page", page);
+            res.render("user/template", page)
+        } catch (error) {
+            console.log("cart page", error)
         }
     }
 

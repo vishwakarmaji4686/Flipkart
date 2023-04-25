@@ -17,7 +17,6 @@
                                 class="btn btn-info">Add New</button>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-12 mt-4">
                     <table class="table table-bordered table-light">
@@ -34,27 +33,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(let i =0; i < product.length; i++) {
-                                let products = product[i];
-                               const allImages = (products.Images) ? products.Images.split(",") : null;
-                               let productSingleImg = (allImages) ? allImages[0] : '';3
-                            %> 
+                            <% for(let i=0; i < product.length; i++) { let products=product[i]; const
+                                allImages=(products.Images) ? products.Images.split(",") : null; let
+                                productSingleImg=(allImages) ? allImages[0] : '' ; %>
                                 <tr>
-                                    <td><%= i + 1; %></td>
                                     <td>
-                                        <img src="/product_Images/<%= productSingleImg; %>" alt="Internal Server Error" height="100" width="100" />
+                                        <%= i + 1; %>
                                     </td>
-                                    <td><%= products.title; %></td>
-                                    <td><%= products.price; %></td>
-                                    <td><%= products.quantity; %></td>
-                                    <td><%= products.category_title; %></td>
-                                    <td><%= products.description; %></td>
                                     <td>
-                                        <a href="/admin/editProduct?productId=<%= products.id; %>" class="btn btn-primary">Edit</a>
-                                        <a href="/admin/deleteProduct?productId=<%= products.id; %>" class="btn btn-danger" onclick="return confirm('are you sure to Delete product?')">Delete</a>
+                                        <img src="/product_Images/<%= productSingleImg; %>" alt="Internal Server Error"
+                                            height="100" width="100" />
                                     </td>
-                                    
-                                </tr> 
+                                    <td>
+                                        <%= products.title; %>
+                                    </td>
+                                    <td>
+                                        <%= products.price; %>
+                                    </td>
+                                    <td>
+                                        <%= products.quantity; %>
+                                    </td>
+                                    <td>
+                                        <%= products.category_title; %>
+                                    </td>
+                                    <td>
+                                        <%= products.description; %>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/editProduct?productId=<%= products.id; %>"
+                                            class="btn btn-primary">Edit</a>
+                                        <a href="/admin/deleteProduct?productId=<%= products.id; %>"
+                                            class="btn btn-danger"
+                                            onclick="return confirm('are you sure to Delete product?')">Delete</a>
+                                    </td>
+
+                                </tr>
                                 <% } %>
                         </tbody>
                     </table>
@@ -69,7 +82,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="/admin/product" method="post" enctype="multipart/form-data" >
+            <form action="/admin/product" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Create New Product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,11 +112,11 @@
                             <label>Category</label>
                             <select name="categoryId" class="form-control">
                                 <option value="0">Select Product Category</option>
-                                <% for(let i =0; i < categories.length; i++) {
-                                    let category = categories[i];    
-                                %>  
-                                <option value="<%= category.id; %>"><%= category.title; %></option>
-                                <% } %>
+                                <% for(let i=0; i < categories.length; i++) { let category=categories[i]; %>
+                                    <option value="<%= category.id; %>">
+                                        <%= category.title; %>
+                                    </option>
+                                    <% } %>
                             </select>
                         </div>
                         <div class="col-12 mt-2">
