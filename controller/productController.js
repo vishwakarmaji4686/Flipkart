@@ -220,8 +220,47 @@ class productController {
             console.log("cart page", error)
         }
     }
+    checkout(req, res) {
+        console.log("req.body", req.body)
+        let productId = req.body.productId;
+        let productQuantity = req.body.productQuantity;
+        let items = {
+            productId: productId,
+            productQuantity: productQuantity,
+        }
+        res.cookie('checkoutItem', items)
+        res.redirect('/product/checkout')
+    }
+    async checkoutpage(req, res) {
+        let page = {
+            title: "checkout",
+            pageName: "checkout",
+            products: "",
+            checkoutItem: false
+        }
+        let productIds = req.cookies.checkoutItem.productId
+        console.log("productIdRahul", productIds)
+        let product = await ModelProduct.getProductDetaByIds(productIds)
+        console.log("productIdRahul", product)
+        page.products = product
+        res.render('user/template', page)
+    }
 
-
+    async searchProductsByKeyword(req, res) {
+        try {
+            console.log("req", req.query);
+            const searchKeyword = req.query.searchKeyword;
+            const products = await ModelProduct.getProductByKeyword(searchKeyword);
+            let response = {
+                status: "Success",
+                items: products
+            }
+            res.json(response);
+        } catch (error) {
+            console.log("ERROR: searchProductsByKeyword", error);
+        }
+    }
 }
+
 
 module.exports = new productController()

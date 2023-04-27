@@ -1,17 +1,17 @@
 const { connection } = require("../config/MySqlConfig")
 
 
-class ModelProduct{
-    async insertProduct(product){
-        return new Promise(function(resolve, reject) {
-             let addNewQuery = `INSERT INTO products(title, price, quantity, description, categoryId, images) VALUES ('${product.title}','${product.price}','${product.quantity}','${product.description}','${product.categoryId}','${product.images}')`;
-             connection.query(addNewQuery, function(error, result){
-                if(error){
+class ModelProduct {
+    async insertProduct(product) {
+        return new Promise(function (resolve, reject) {
+            let addNewQuery = `INSERT INTO products(title, price, quantity, description, categoryId, images) VALUES ('${product.title}','${product.price}','${product.quantity}','${product.description}','${product.categoryId}','${product.images}')`;
+            connection.query(addNewQuery, function (error, result) {
+                if (error) {
                     reject(error)
                 } else {
                     resolve(result)
                 }
-             })
+            })
         })
     };
 
@@ -42,44 +42,59 @@ class ModelProduct{
         })
     }
 
-    async getProductDetaById(productId){
-        return new Promise(function(resolve, reject) {
+    async getProductDetaById(productId) {
+        return new Promise(function (resolve, reject) {
             const addNewQuery = `SELECT *FROM products WHERE id='${productId}'`;
-            connection.query(addNewQuery, function(error, result){
-                if(error){
+            connection.query(addNewQuery, function (error, result) {
+                if (error) {
                     reject(error)
                 } else {
                     resolve(result)
                 }
             })
-            
+
         })
     }
 
-    async updateProduct (productId, product){
-        return new Promise(function(resolve, reject) {
+    async updateProduct(productId, product) {
+        return new Promise(function (resolve, reject) {
             const addNewProQry = `UPDATE products SET title='${product.title}', price='${product.price}', quantity='${product.quantity}', description='${product.description}', images='${product.images}' WHERE id=${productId};`
-           connection.query(addNewProQry,function(error, result){
-            if(error){
-                reject(error)
-            } else {
-                resolve(result)
-            };
-           });
+            connection.query(addNewProQry, function (error, result) {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(result)
+                };
+            });
         });
     };
 
-    async getProductDetaByIds(productIds){
-        return new Promise(function(resolve, reject) {
+    async getProductDetaByIds(productIds) {
+        return new Promise(function (resolve, reject) {
             const addNewQuery = `SELECT *FROM products WHERE id IN (${productIds})`;
-            connection.query(addNewQuery, function(error, result){
-                if(error){
+            connection.query(addNewQuery, function (error, result) {
+                if (error) {
                     reject(error)
                 } else {
                     resolve(result)
                 }
             })
-            
+
+        })
+    }
+
+    async getProductByKeyword(searchTerm) {
+        return new Promise(function (resolve, reject) {
+            const searchQry = `SELECT * FROM products WHERE title LIKE "%${searchTerm}%" `;
+            console.log("searchQry", searchQry);
+            connection.query(searchQry, function (error, result) {
+                if (error) {
+                    reject(error)
+                } else {
+                    resolve(result)
+                }
+            })
+
         })
     }
 

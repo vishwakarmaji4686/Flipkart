@@ -1,5 +1,18 @@
-<div class="container">
-    <div class="row">
+<div class="container mt-3 ">
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col-10">
+                <input type="text" name="searchKeyword" id="searchKeyword" class="form-control" />
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-primary btn-outline-primary"
+                    onclick="getSearchedProducts();">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="productContainer">
         <% for(let i=0; i < product.length; i++) { var img=product[i].Images.split(','); %>
             <div class="col-3 mt-2 ">
                 <div class="card ">
@@ -9,7 +22,7 @@
                         </h3>
                     </div>
                     <div class="card-body">
-                        <img src="/product_Images/<%= img[0]; %>" style="height:200px;width:270px" />
+                        <img src="/product_Images/<%= img[0]; %>" style="height:250px;width:270px" />
                     </div>
                     <div class="card-footer">
                         <div class="row">
@@ -17,7 +30,8 @@
                                 <span>Price : $<%= product[i].price; %>/-</span>
                             </div>
                             <div class="col-6 text text-end">
-                                <a href="javascript:void(0);" class="btn btn-primary btn-sm" onclick="addToCart(`<%= product[i].id; %>`);">Add To
+                                <a href="javascript:void(0);" class="btn btn-primary btn-sm"
+                                    onclick="addToCart(`<%= product[i].id; %>`);">Add To
                                     Cart</a>
                             </div>
                         </div>
@@ -38,8 +52,56 @@
             success: function (result) {
                 console.log("success :: result", result);
             },
-            error: function () {
+            error: function (error) {
                 console.log("ERROR: Add TO cart:: ", error);
+            }
+        });
+    }
+
+    function getSearchedProducts() {
+        const searchKeyword = $('#searchKeyword').val();
+        console.log("searchKeyword", searchKeyword);
+        $.ajax({
+            url: "/product/search",
+            method: "GET",
+            data: { searchKeyword: searchKeyword },
+            success: function (result) {
+                console.log("result", result);
+                const items = result.items;
+                let output = "";
+                items.forEach(singleProduct => {
+                    console.log("singleProduct", singleProduct);
+                    const img = singleProduct.Images.split(",");
+                    output += `
+                    <div class="col-3 mt-2 ">
+                        <div class="card ">
+                            <div class="card-header">
+                                <h3>
+                                    ${singleProduct.title}
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <img src="/product_Images/${img[0]}" style="height:250px;width:270px" />
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span>Price : $${singleProduct.price}/-</span>
+                                    </div>
+                                    <div class="col-6 text text-end">
+                                        <a href="javascript:void(0);" class="btn btn-primary btn-sm"
+                                            onclick="addToCart('${singleProduct.id}');">Add To
+                                            Cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                $("#productContainer").html(output);
+            },
+            error: function (error) {
+                console.log("search error", error);
             }
         });
     }
