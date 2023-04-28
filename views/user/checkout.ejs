@@ -7,25 +7,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Shoping Details</h3>
+                                <h3 class="card-title">Customer Details</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <label>Full Name</label>
-                                        <input type="text" name="shippingFullname" class="form-control" />
+                                        <input type="text" name="shippingFullname" class="form-control" value="<%= user.firstName +' '+ user.lastName; %>" />
                                     </div>
                                     <div class="col-6 mt-2">
                                         <label>Contact Number</label>
-                                        <input type="number" name="shippingContact" class="form-control" />
+                                        <input type="number" name="shippingContact" class="form-control" value="<%= user.contact; %>" />
                                     </div>
                                     <div class="col-6 mt-2">
                                         <label>Pincode</label>
-                                        <input type="number" name="shippingPincode" class="form-control" />
-                                    </div>
-                                    <div class="col-12 mt-2">
-                                        <label>Address</label>
-                                        <textarea name="shippingAdress" class="form-control"></textarea>
+                                        <input type="number" name="shippingPincode" class="form-control" value="<%= user.pincode; %>" />
                                     </div>
                                 </div>
                             </div>
@@ -54,14 +50,16 @@
                                         </thead>
                                         <tbody>
                                             <% for(let i=0; i < products.length; i++){ let product =  products[i]; %>
+                                           <tr>
                                                 <td>
-                                                    <%= product.title; %>
+                                                    <%= i + 1; %>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <% } %>
+                                                <td><%= product.title; %></td>
+                                                <td><%= product.price; %></td>
+                                                <td><%= product.quantity; %></td>
+                                                <td><%= product.total; %></td>
+                                           </tr>
+                                           <% } %>
                                         </tbody>
                                         <tfoot>
                                             <tr>

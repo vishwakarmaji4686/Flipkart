@@ -26,18 +26,6 @@ class AllUserModel{
             });
         });
     };
-    async getuserById(id){
-        return new Promise(function (resolve, reject) {
-            let addNewQry = `SELECT * FROM users WHERE id='${id}'`;
-            connection.query(addNewQry, function(error, result){
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(result[0])
-                }
-            });
-        });
-    };
     async deleteUserById(id){
         return new Promise(function(resolve, reject) {
             let query =` DELETE FROM users WHERE id='${id}'` 

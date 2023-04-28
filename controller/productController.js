@@ -3,6 +3,7 @@ const ModelProduct = require("../model/ModelProduct");
 const CategoryController = require("./CategoryController")
 const commonSarvice = require("../sarvice/commonSarvice");
 const Joi = require("joi");
+const AllUserModel = require("../model/AllUserModel");
 
 class productController {
     constructor() { }
@@ -236,13 +237,28 @@ class productController {
             title: "checkout",
             pageName: "checkout",
             products: "",
-            checkoutItem: false
-        }
+            checkoutItem: false,
+            user: null
+        };
+        const userId = req.cookies.token;
+        const userInfo = await AllUserModel.getuserById(userId);
+        page.user = userInfo;
         let productIds = req.cookies.checkoutItem.productId
-        console.log("productIdRahul", productIds)
+        let Quantity = req.cookies.checkoutItem.productQuantity
         let product = await ModelProduct.getProductDetaByIds(productIds)
         console.log("productIdRahul", product)
-        page.products = product
+        let pro = [];
+        product.forEach((singleproduct, index) => {
+            let singleItem = {
+                productId: singleproduct.id,
+                title: singleproduct.title,
+                price: singleproduct.price,
+                quantity: Quantity[index],
+                total: singleproduct.price * Quantity[index]
+            }
+            pro.push(singleItem);
+        });
+        page.products = pro
         res.render('user/template', page)
     }
 
