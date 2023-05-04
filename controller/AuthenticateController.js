@@ -10,6 +10,10 @@ class AuthenticateController {
             pageName: "singUp",
             status: "",
             message: "",
+            login: false
+        }
+        if(req.cookies.token){
+            page.login = true
         }
         if (req.session.status && req.session.message) {
             page.status = req.session.status;
@@ -72,7 +76,11 @@ class AuthenticateController {
                 title: "login",
                 pageName: "login",
                 status: "",
-                message: ""
+                message: "",
+                login: false
+            }
+            if(req.cookies.token){
+                page.login = true
             }
             if (req.session.status && req.session.message) {
                 page.status = req.session.status;
@@ -106,6 +114,5 @@ class AuthenticateController {
             res.redirect('/login')
         };
     }
-
 }
 module.exports = new AuthenticateController;

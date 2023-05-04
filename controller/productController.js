@@ -213,6 +213,10 @@ class productController {
                 products: "",
                 status: "",
                 user: "",
+                login: false
+            }
+            if(req.cookies.token){
+                page.login = true
             }
             page.products = items;
             console.log("page", page);

@@ -3,6 +3,7 @@ const app = express();
 const ModelProduct = require("../../model/ModelProduct")
 const AuthenticateController = require("../../controller/AuthenticateController");
 const ProductRouter = require("./ProductRouter");
+const OdearController = require("../../controller/OdearController")
 
 
 app.get('/', async function (req, res) {
@@ -38,7 +39,11 @@ app.get('/profile', function (req, res) {
     try {
         let page = {
             title: "profile",
-            pageName: "profile"
+            pageName: "profile",
+            login: false
+        }
+        if(req.cookies.token){
+            page.login = true
         }
     
         res.render('user/template', page);
@@ -52,6 +57,7 @@ app.get('/singUp',AuthenticateController.singUpPage);
 app.post('/singUp', AuthenticateController.userSingUp);
 
 app.use('/product', ProductRouter);
-/* app.get('/cart', CartController.cart) */
+app.post('/placeOdear', OdearController.placeOdear)
+app.get('/myOdear',OdearController.myOdear);
 
 module.exports = app;

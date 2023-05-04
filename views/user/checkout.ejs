@@ -13,15 +13,64 @@
                                 <div class="row">
                                     <div class="col-12 mt-2">
                                         <label>Full Name</label>
-                                        <input type="text" name="shippingFullname" class="form-control" value="<%= user.firstName +' '+ user.lastName; %>" />
+                                        <input type="hidden" name="customerId" class="form-control" value="<%= user.id; %>">
+                                        <input type="text" name="CustomerFullname" class="form-control" value="<%= user.firstName +' '+ user.lastName; %>" />
                                     </div>
                                     <div class="col-6 mt-2">
                                         <label>Contact Number</label>
-                                        <input type="number" name="shippingContact" class="form-control" value="<%= user.contact; %>" />
+                                        <input type="number" name="CustomerContact" class="form-control" value="<%= user.contact; %>" />
                                     </div>
                                     <div class="col-6 mt-2">
                                         <label>Pincode</label>
-                                        <input type="number" name="shippingPincode" class="form-control" value="<%= user.pincode; %>" />
+                                        <input type="number" name="CustomerPincode" class="form-control" value="<%= user.pincode; %>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Billing Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label>Full Name</label>
+                                        <input type="text" name="billingFullname" class="form-control" />
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label>Contact Number</label>
+                                        <input type="number" name="billingContact" class="form-control" />
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label>Pincode</label>
+                                        <input type="number" name="billingPincode" class="form-control" />
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label>Address</label>
+                                        <textarea name="billingAdress" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h3 class="card-title">Shiping Address </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <label>Address</label>
+                                        <textarea name="ShipingAdress" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label>City</label>
+                                        <input type="City" name="ShipingCity" class="form-control" />
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label>Pincode</label>
+                                        <input type="number" name="ShipingPincode" class="form-control" />
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label>Lendmark</label>
+                                        <input type="text" name="ShipingLendmark" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -49,15 +98,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <% for(let i=0; i < products.length; i++){ let product =  products[i]; %>
+                                            <%
+                                            let grandTotal=0;
+                                             for(let i=0; i < products.length; i++){ let product =  products[i];
+                                                grandTotal = parseInt(grandTotal) + parseInt(products[i].total); 
+                                                 %>
                                            <tr>
-                                                <td>
+                                                <td  >
                                                     <%= i + 1; %>
                                                 </td>
-                                                <td><%= product.title; %></td>
-                                                <td><%= product.price; %></td>
-                                                <td><%= product.quantity; %></td>
-                                                <td><%= product.total; %></td>
+                                                <td name="product" class="form-control" ><%= product.title; %></td>
+                                                <input type="hidden" name="title" value="<%= product.title; %>">
+                                                <input type="hidden" name="productId" value="<%= product.productId; %>">
+                                                <td name="productPrice"><%= product.price; %></td>
+                                                <input type="hidden" name="price" value="<%= product.price; %>">
+                                                <td name="productquantity"><%= product.quantity; %></td>
+                                                <input type="hidden" name="quantity" value="<%= product.quantity; %>">
+                                                <td name="producttotal"><%= product.total; %></td>
+                                                <input type="hidden" name="total" value="<%= product.total; %>">
                                            </tr>
                                            <% } %>
                                         </tbody>
@@ -65,73 +123,44 @@
                                             <tr>
                                                 <th colspan="4" class="text text-end"> grand total</th>
                                                 <th>
-                                                    <input type="hidden" name="grandTotal" value="">
-
+                                                    <input type="hidden" name="grandTotal" value="<%= grandTotal; %>">
+                                                    <%= grandTotal; %>
                                                 </th>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Payment Method</h3>
+                                </div>
+                                <div class="card-body">
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="cod" /> Cash on delivery
+                                    </label><br />
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="netBanking" /> Internet Banking
+                                    </label><br />
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="upi" /> UPI
+                                    </label><br />
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="wallet" /> Wallet
+                                    </label><br />
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="creditCard" /> Credit Card
+                                    </label><br />
+                                    <label>
+                                        <input type="radio" name="paymentMethod" value="debitCard" /> Debit Card
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-success"> place odear</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-7 mt-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Billing Information</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12 mt-2">
-                                <label>Full Name</label>
-                                <input type="text" name="billingFullname" class="form-control" />
-                            </div>
-                            <div class="col-6 mt-2">
-                                <label>Contact Number</label>
-                                <input type="number" name="billingContact" class="form-control" />
-                            </div>
-                            <div class="col-6 mt-2">
-                                <label>Pincode</label>
-                                <input type="number" name="billingPincode" class="form-control" />
-                            </div>
-                            <div class="col-12 mt-2">
-                                <label>Address</label>
-                                <textarea name="billingAdress" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-5 mt-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Payment Method</h3>
-                    </div>
-                    <div class="card-body">
-                        <label>
-                            <input type="radio" name="paymentMethod" value="cod" /> Cash on delivery
-                        </label><br />
-                        <label>
-                            <input type="radio" name="paymentMethod" value="netBanking" /> Internet Banking
-                        </label><br />
-                        <label>
-                            <input type="radio" name="paymentMethod" value="upi" /> UPI
-                        </label><br />
-                        <label>
-                            <input type="radio" name="paymentMethod" value="wallet" /> Wallet
-                        </label><br />
-                        <label>
-                            <input type="radio" name="paymentMethod" value="creditCard" /> Credit Card
-                        </label><br />
-                        <label>
-                            <input type="radio" name="paymentMethod" value="debitCard" /> Debit Card
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-success"> place odear</button>
                 </div>
             </div>
         </div>
