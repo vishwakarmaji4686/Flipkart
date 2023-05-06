@@ -21,16 +21,7 @@ class CategoryController {
         let price = req.body.price;
         let productIds = req.body.productId;
         let quantity = req.body.quantity;
-        console.log("title", title);
-        console.log("price", price);
-        console.log("productIds", productIds);
-
-
-
-        let total = req.body.total;
-        let grandTotal = req.body.grandTotal;
         let paymentMethod = req.body.paymentMethod;
-
         let billingInformation = {
             customerId: customerId,
             CustomerFullname: CustomerFullname,
@@ -44,18 +35,8 @@ class CategoryController {
             ShipingCity: ShipingCity,
             ShipingPincode: ShipingPincode,
             ShipingLendmark: ShipingLendmark,
-        }
-        let odears = {
-            customerId: customerId,
-            title: title,
-            price: price,
-            quantity: quantity,
-            total: total,
-            grandTotal: grandTotal,
             paymentMethod: paymentMethod,
         }
-        const orderDetails = await odearModel.insertOdear(odears);
-        console.log("orderDetails", orderDetails);
         for (let index = 0; index < productIds.length; index++) {
             const productId = productIds[index];
             let item = {
@@ -64,12 +45,11 @@ class CategoryController {
                 title: title[index],
                 quantity: quantity[index],
                 totalAmt: parseInt(price[index]) * parseInt(quantity[index]),
-                orderId: orderDetails.insertId
+                customerId: customerId
             }
             await odearModel.insertOrderItem(item);
             console.log("item", item);
         }
-        return false;
         await odearModel.insertbillingInformation(billingInformation);
         res.redirect("/myOdear")
     }

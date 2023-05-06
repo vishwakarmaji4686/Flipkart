@@ -28,6 +28,32 @@ class ModelProduct {
             });
         })
     }
+    
+    async getProductCount() {
+        return new Promise(function (resolve, reject) {
+            let insertQry = `SELECT COUNT(*) AS totalProducts FROM products`;
+            connection.query(insertQry, function (error, result) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result[0].totalProducts);
+                }
+            });
+        })
+    }
+    
+    async getAllProductsByFilters(offset, limit) {
+        return new Promise(function (resolve, reject) {
+            let insertQry = `SELECT * FROM products LIMIT ${offset},${limit}`;
+            connection.query(insertQry, function (error, result) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            });
+        })
+    }
 
     async deleteProductById(productId) {
         return new Promise(function (resolve, reject) {

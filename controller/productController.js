@@ -253,6 +253,7 @@ class productController {
         console.log("productIdRahul", product)
         let pro = [];
         product.forEach((singleproduct, index) => {
+            console.log("singleproductsingleproduct", singleproduct);
             let singleItem = {
                 productId: singleproduct.id,
                 title: singleproduct.title,
